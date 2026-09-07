@@ -1,0 +1,13 @@
+=== Filtering amp_positive.csv ===
+  before: 37638
+  removed <5aa: 739
+  removed >100aa: 2415
+  kept: 34484 (91.6%)
+  wrote amp_positive_filtered.csv
+
+=== Filtering uniprot_background_raw.tsv ===
+  before: 566484
+  removed <5aa: 33
+  removed >100aa: 510911
+  kept: 55540 (9.8%)
+  wrote uniprot_background_filtered.tsv

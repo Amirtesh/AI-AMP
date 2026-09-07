@@ -1,0 +1,19 @@
+name: toxin_hemo
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy=1.26.4
+  - pandas>=2.2.0
+  - scipy>=1.11.0
+  - scikit-learn=1.2.2
+  - joblib>=1.3.0
+  - flask>=3.0.0
+  - requests>=2.31.0
+  - tqdm>=4.66.0
+  - pip:
+    - torch>=2.1.0
+    - hemopi2==1.3
+    - toxinpred3==1.4

@@ -1,0 +1,76 @@
+Total rows: 18883, Total feature columns: 40
+                          count         mean  ...          75%           max
+length                  18883.0    25.362495  ...    28.000000    517.000000
+frac_A                  18883.0     0.064600  ...     0.100000      1.000000
+frac_G                  18883.0     0.071232  ...     0.111111      1.000000
+frac_Q                  18883.0     0.019952  ...     0.032258      0.500000
+frac_L                  18883.0     0.114197  ...     0.157895      1.000000
+frac_W                  18883.0     0.049824  ...     0.055556      1.000000
+frac_I                  18883.0     0.064405  ...     0.100000      1.000000
+frac_R                  18883.0     0.112900  ...     0.170213      1.000000
+frac_S                  18883.0     0.038513  ...     0.066667      0.681818
+frac_N                  18883.0     0.024770  ...     0.045455      0.500000
+frac_V                  18883.0     0.054295  ...     0.083333      1.000000
+frac_K                  18883.0     0.147457  ...     0.214286      1.000000
+frac_T                  18883.0     0.026163  ...     0.047619      0.500000
+frac_E                  18883.0     0.016633  ...     0.022989      1.000000
+frac_D                  18883.0     0.015815  ...     0.023256      1.000000
+frac_C                  18883.0     0.034938  ...     0.054054      1.000000
+frac_M                  18883.0     0.010074  ...     0.000000      1.000000
+frac_Y                  18883.0     0.021262  ...     0.032258      1.000000
+frac_F                  18883.0     0.050908  ...     0.076923      1.000000
+frac_H                  18883.0     0.020572  ...     0.024390      1.000000
+frac_P                  18883.0     0.041490  ...     0.055556      1.000000
+molecular_weight        18883.0  2919.372509  ...  3165.777650  58471.102300
+aromaticity             18883.0     0.121995  ...     0.162162      1.000000
+instability_index       18883.0    41.382115  ...    59.360883    543.946667
+isoelectric_point       18883.0    10.040743  ...    11.553847     11.999968
+gravy                   18883.0    -0.318422  ...     0.348052      4.500000
+ss_helix_frac           18883.0     0.352960  ...     0.473684      1.000000
+ss_turn_frac            18883.0     0.191820  ...     0.281250      1.000000
+ss_sheet_frac           18883.0     0.381055  ...     0.473684      1.000000
+charge_at_pH7           18883.0     4.145514  ...     5.757809     60.725377
+modlamp_Length          18883.0    25.362495  ...    28.000000    517.000000
+modlamp_MW              18883.0  2918.400279  ...  3164.810000  58470.310000
+modlamp_Charge          18883.0     5.207836  ...     6.986000     62.087000
+modlamp_ChargeDensity   18883.0     0.002323  ...     0.003307      0.013697
+modlamp_pI              18883.0    11.626640  ...    13.234375     14.329102
+modlamp_InstabilityInd  18883.0    41.382115  ...    59.360883    543.946667
+modlamp_Aromaticity     18883.0     0.121995  ...     0.162162      1.000000
+modlamp_AliphaticInd    18883.0    91.860241  ...   127.391304    390.000000
+modlamp_BomanInd        18883.0     1.707912  ...     2.913868     14.920000
+modlamp_HydrophRatio    18883.0     0.393416  ...     0.500000      1.000000
+
+[40 rows x 8 columns]
+
+Columns with missing values:
+None
+
+Length stats: min=1, max=517, median=18.0, % over 50aa: 9.1%
+
+Outlier counts per key feature (IQR method, informational - do NOT auto-drop yet):
+  length: 1716 (9.1%)
+  molecular_weight: 1772 (9.4%)
+  instability_index: 1103 (5.8%)
+  gravy: 415 (2.2%)
+  charge_at_pH7: 788 (4.2%)
+
+Highly correlated feature pairs (|r|>0.9): 10
+  length <-> molecular_weight: 0.995
+  length <-> modlamp_Length: 1.000
+  length <-> modlamp_MW: 0.995
+  molecular_weight <-> modlamp_Length: 0.995
+  molecular_weight <-> modlamp_MW: 1.000
+  aromaticity <-> modlamp_Aromaticity: 1.000
+  instability_index <-> modlamp_InstabilityInd: 1.000
+  gravy <-> modlamp_HydrophRatio: 0.913
+  charge_at_pH7 <-> modlamp_Charge: 0.995
+  modlamp_Length <-> modlamp_MW: 0.995
+
+Class balance:
+gram_positive    0.773606
+gram_negative    0.794895
+fungal           0.400413
+dtype: float64
+
+Rows with fully identical feature vectors (different sequences, same descriptors): 599

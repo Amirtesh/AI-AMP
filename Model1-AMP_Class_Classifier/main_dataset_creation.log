@@ -1,0 +1,38 @@
+=== Gram positive ===
+DBAASP/Antigramp.csv: 16522 sequences loaded (column 'SEQUENCE')
+  -> union so far: 0 + new -> 15696
+dbAMP/Antigramp.csv: 11765 sequences loaded (column 'SEQUENCE')
+  -> union so far: 15696 + new -> 17241
+DRAMP/Anti-Gram-positive_amps.xlsx: 2733 sequences loaded (column 'Sequence')
+  -> union so far: 17241 + new -> 17288
+
+=== Gram negative ===
+DBAASP/Antigramn.csv: 17036 sequences loaded (column 'SEQUENCE')
+  -> union so far: 0 + new -> 16128
+dbAMP/Antigramn.csv: 12178 sequences loaded (column 'SEQUENCE')
+  -> union so far: 16128 + new -> 17467
+DRAMP/Anti-Gram-_amps.xlsx: 2562 sequences loaded (column 'Sequence')
+  -> union so far: 17467 + new -> 17508
+
+=== Fungal ===
+DBAASP/Antifungal.csv: 6072 sequences loaded (column 'SEQUENCE')
+  -> union so far: 0 + new -> 5773
+dbAMP/Antifungal.csv: 5696 sequences loaded (column 'SEQUENCE')
+  -> union so far: 5773 + new -> 7149
+DRAMP/Antifungal_amps.xlsx: 3524 sequences loaded (column 'Sequence')
+  -> union so far: 7149 + new -> 8611
+
+Total unique sequences across all three categories: 22147
+
+Label distribution:
+gram_positive    17288
+gram_negative    17508
+fungal            8611
+dtype: int64
+
+Sequences active in more than one category (broad-spectrum): 15744 (71.1%)
+Sequences with zero labels (should be 0, investigate if not): 0
+Duplicate sequences remaining: 0 (should be 0)
+
+Saved: AMP_multilabel_master.csv (22147 rows)
+

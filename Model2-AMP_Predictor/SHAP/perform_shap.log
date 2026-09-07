@@ -1,0 +1,24 @@
+Test set: 6254 rows
+
+Selected examples:
+                                sequence  true_label  pred_prob
+1255                        KKFWKKFWKKFW           1   0.999981
+3323  MNDQMFVETLIITSSFFAIAAVLVLSVLLIERTG           0   0.000143
+5276                     KKKKCKGGWKCKFNM           0   0.998701
+Saved model2_waterfall_correct_AMP.png (true_label=1, pred_prob=1.0000)
+Saved model2_waterfall_correct_nonAMP.png (true_label=0, pred_prob=0.0001)
+Saved model2_waterfall_misclassified.png (true_label=0, pred_prob=0.9987)
+
+6 / 15 top dims had at least one |r|>0.5 correlation with a named biophysical feature
+esm2_dim   biophysical_feature  correlation
+esm2_431 modlamp_ChargeDensity     0.620715
+ esm2_39                frac_R     0.594871
+esm2_195        modlamp_Charge     0.592098
+ esm2_24        modlamp_Charge    -0.570538
+esm2_431                frac_R     0.570353
+esm2_431            modlamp_pI     0.545731
+esm2_150                frac_K     0.542827
+ esm2_24 modlamp_ChargeDensity    -0.516532
+ esm2_35        modlamp_Charge     0.511253
+
+All SHAP outputs saved to shap_outputs/

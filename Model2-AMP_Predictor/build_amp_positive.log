@@ -1,0 +1,44 @@
+=== Loading DBAASP: DBAASP/tier1_confirmed_positives.csv ===
+  shape: (20825, 4), columns: ['peptideId', 'sequence', 'has_lowercase', 'n_species_tested']
+
+=== Loading dbAMP: dbAMP/dbAMP3_pepinfo.xlsx ===
+  sheets found: ['dbAMP3_pepinfo']
+  shape: (35600, 8), columns: ['dbAMP_ID', 'Name', 'Source', 'Tax', 'Uniprot', 'PDB', 'Targets', 'Seq']
+
+=== Loading DRAMP: DRAMP/DRAMP.xlsx ===
+  sheets found: ['general_amps']
+  shape: (11687, 29), columns: ['DRAMP_ID', 'Sequence', 'Sequence_Length', 'Name', 'Swiss_Prot_Entry', 'Family', 'Gene', 'Source', 'Activity', 'Protein_existence', 'Structure', 'Structure_Description', 'PDB_ID', 'Comments', 'Target_Organism', 'Hemolytic_activity', 'half_life', 'Linear/Cyclic/Branched', 'N-terminal_Modification', 'C-terminal_Modification', 'Other_Modifications', 'Stereochemistry', 'Cytotoxicity', 'Binding_Traget', 'Pubmed_ID', 'Reference', 'Author', 'Title', 'SMILES']
+
+=== Combined raw rows: 68112 ===
+  [warn] dropping 2 rows with empty/NaN sequence
+  [flag] 7634 sequences contain characters outside the standard 20 AA (upper or lower). NOT auto-removed — inspect before deciding. Sample: ['RRXXRF', 'XLWKTLLKKVLKAAA', 'XLWKTLLKKVLKAAA', 'XWKTLLKKVLKAAA', 'XWKTLLKKVLKAAA']
+
+  3835 / 68110 raw entries had lowercase (D-amino acid) characters, now uppercased per your explicit instruction. This discards stereochemistry information — confirmed as your deliberate call, not assumed by this script.
+
+=== Deduplicating on uppercased sequence ===
+  unique sequences after dedup: 41855 (from 68110 raw rows)
+  cross-database overlap distribution:
+n_source_dbs
+1    24480
+2    13339
+3     4036
+Name: count, dtype: int64
+  41.5% of unique sequences appear in more than one database (compare against your known ~72% cross-database duplication figure from Model 1 — if this is wildly different, that's worth understanding before proceeding, not ignoring).
+
+=== Removing non-standard-amino-acid-containing peptides ===
+  removed 4217 / 41855 sequences (10.08%)
+  sample removed sequences (for your own sanity check, not just trusting the filter):
+                                             sequence  source_dbs
+                                    (RRWQWR)2-K-(AHX)       DRAMP
+                               (RRWQWR)4-K2-(AHX)2-C2       DRAMP
+                         2ABZ-A-XIILE-N(ME)PHE(BS-OH)       DRAMP
+A-MELEU-MELEU-MEVAL-MEBMT-ABU-SAR-MELEU-VAL-MELEU-ALA       DRAMP
+                                              AAQYVXX       DRAMP
+                                               AAXGVL       DRAMP
+                                   ABWKKBBKKBBKSAKKBG       dbAMP
+                  ACGGGGGDVGSLISASLFDQMLKYRNDPRCCXXGF DRAMP;dbAMP
+                       ACLPNSCVSKGCCCGBSGYWCRQCGIKYTC DRAMP;dbAMP
+                       ACYCRIPACIAGERRYGTCIYQGRLWAXCC       dbAMP
+  remaining: 37638
+
+=== Wrote amp_positive.csv (37638 rows) ===

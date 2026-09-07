@@ -1,0 +1,4 @@
+Total input sequences: 22147
+Successfully featurized: 18883
+Dropped (non-standard residues or parsing failure): 3264
+Dropped fraction: 14.7%

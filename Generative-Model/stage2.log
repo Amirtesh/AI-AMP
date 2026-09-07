@@ -1,0 +1,98 @@
+Device: cuda
+Mixed precision: True (bf16)
+Length filter [15-50]: 34484 -> 18878
+Dedup: 18878 -> 18878
+Final Stage 2 corpus: 18878 sequences
+count    18878.000000
+mean        26.102129
+std          9.565407
+min         15.000000
+25%         19.000000
+50%         23.000000
+75%         33.000000
+max         50.000000
+Name: seq_len, dtype: float64
+Train: 17934, Val: 944
+Loaded Stage 1 weights from stage1_checkpoints/best_model.pt
+/home/Peptide-generation/train_stage2.py:127: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(args.amp and not use_bf16))
+  epoch 0 step 0/36 loss=3.1556 lr=2.02e-06
+  epoch 0 step 20/36 loss=3.0637 lr=1.16e-05
+Epoch 0: train_loss=3.0695 val_loss=2.9011 time=0.04min
+  -> new best model saved (val_loss=2.9011)
+  epoch 1 step 0/36 loss=2.9260 lr=2.76e-05
+  epoch 1 step 20/36 loss=2.7724 lr=4.55e-05
+Epoch 1: train_loss=2.7911 val_loss=2.6705 time=0.03min
+  -> new best model saved (val_loss=2.6705)
+  epoch 2 step 0/36 loss=2.7021 lr=5.00e-05
+  epoch 2 step 20/36 loss=2.6029 lr=4.99e-05
+Epoch 2: train_loss=2.6273 val_loss=2.5448 time=0.03min
+  -> new best model saved (val_loss=2.5448)
+  epoch 3 step 0/36 loss=2.5908 lr=4.96e-05
+  epoch 3 step 20/36 loss=2.5192 lr=4.90e-05
+Epoch 3: train_loss=2.5204 val_loss=2.4478 time=0.03min
+  -> new best model saved (val_loss=2.4478)
+  epoch 4 step 0/36 loss=2.4505 lr=4.84e-05
+  epoch 4 step 20/36 loss=2.4402 lr=4.74e-05
+Epoch 4: train_loss=2.4265 val_loss=2.3693 time=0.03min
+  -> new best model saved (val_loss=2.3693)
+  epoch 5 step 0/36 loss=2.3430 lr=4.65e-05
+  epoch 5 step 20/36 loss=2.3305 lr=4.52e-05
+Epoch 5: train_loss=2.3489 val_loss=2.3094 time=0.03min
+  -> new best model saved (val_loss=2.3094)
+  epoch 6 step 0/36 loss=2.3077 lr=4.40e-05
+  epoch 6 step 20/36 loss=2.3263 lr=4.23e-05
+Epoch 6: train_loss=2.2872 val_loss=2.2633 time=0.03min
+  -> new best model saved (val_loss=2.2633)
+  epoch 7 step 0/36 loss=2.2361 lr=4.09e-05
+  epoch 7 step 20/36 loss=2.1723 lr=3.89e-05
+Epoch 7: train_loss=2.2366 val_loss=2.2232 time=0.03min
+  -> new best model saved (val_loss=2.2232)
+  epoch 8 step 0/36 loss=2.2300 lr=3.73e-05
+  epoch 8 step 20/36 loss=2.2076 lr=3.51e-05
+Epoch 8: train_loss=2.1950 val_loss=2.1939 time=0.03min
+  -> new best model saved (val_loss=2.1939)
+  epoch 9 step 0/36 loss=2.2050 lr=3.33e-05
+  epoch 9 step 20/36 loss=2.1660 lr=3.10e-05
+Epoch 9: train_loss=2.1608 val_loss=2.1694 time=0.03min
+  -> new best model saved (val_loss=2.1694)
+  epoch 10 step 0/36 loss=2.1527 lr=2.91e-05
+  epoch 10 step 20/36 loss=2.1298 lr=2.67e-05
+Epoch 10: train_loss=2.1330 val_loss=2.1492 time=0.03min
+  -> new best model saved (val_loss=2.1492)
+  epoch 11 step 0/36 loss=2.1117 lr=2.48e-05
+  epoch 11 step 20/36 loss=2.0806 lr=2.23e-05
+Epoch 11: train_loss=2.1121 val_loss=2.1344 time=0.03min
+  -> new best model saved (val_loss=2.1344)
+  epoch 12 step 0/36 loss=2.0906 lr=2.04e-05
+  epoch 12 step 20/36 loss=2.1326 lr=1.81e-05
+Epoch 12: train_loss=2.0950 val_loss=2.1233 time=0.03min
+  -> new best model saved (val_loss=2.1233)
+  epoch 13 step 0/36 loss=2.1000 lr=1.62e-05
+  epoch 13 step 20/36 loss=2.0669 lr=1.40e-05
+Epoch 13: train_loss=2.0819 val_loss=2.1137 time=0.03min
+  -> new best model saved (val_loss=2.1137)
+  epoch 14 step 0/36 loss=2.0906 lr=1.23e-05
+  epoch 14 step 20/36 loss=2.1119 lr=1.03e-05
+Epoch 14: train_loss=2.0716 val_loss=2.1076 time=0.03min
+  -> new best model saved (val_loss=2.1076)
+  epoch 15 step 0/36 loss=2.0531 lr=8.75e-06
+  epoch 15 step 20/36 loss=2.0960 lr=6.98e-06
+Epoch 15: train_loss=2.0642 val_loss=2.1034 time=0.03min
+  -> new best model saved (val_loss=2.1034)
+  epoch 16 step 0/36 loss=2.0735 lr=5.69e-06
+  epoch 16 step 20/36 loss=2.1084 lr=4.25e-06
+Epoch 16: train_loss=2.0599 val_loss=2.1004 time=0.03min
+  -> new best model saved (val_loss=2.1004)
+  epoch 17 step 0/36 loss=2.1360 lr=3.23e-06
+  epoch 17 step 20/36 loss=2.0762 lr=2.14e-06
+Epoch 17: train_loss=2.0587 val_loss=2.0993 time=0.03min
+  -> new best model saved (val_loss=2.0993)
+  epoch 18 step 0/36 loss=2.0203 lr=1.43e-06
+  epoch 18 step 20/36 loss=2.0598 lr=7.31e-07
+Epoch 18: train_loss=2.0560 val_loss=2.0989 time=0.03min
+  -> new best model saved (val_loss=2.0989)
+  epoch 19 step 0/36 loss=2.0277 lr=3.39e-07
+  epoch 19 step 20/36 loss=2.0711 lr=5.78e-08
+Epoch 19: train_loss=2.0567 val_loss=2.0988 time=0.03min
+  -> new best model saved (val_loss=2.0988)

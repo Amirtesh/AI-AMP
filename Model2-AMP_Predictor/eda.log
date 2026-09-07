@@ -1,0 +1,71 @@
+Total rows: 68792, feature columns: 40 (40 numeric)
+
+Saved eda_model2/description_stats.csv
+
+No missing values.
+
+Length by label (should be close between 0/1 — if not, the earlier fix regressed):
+         count       mean        std  min   25%   50%   75%    max
+label                                                             
+0      34308.0  27.311589  20.851911  5.0  13.0  20.0  35.0  100.0
+1      34484.0  27.236110  20.827826  5.0  13.0  20.0  35.0  100.0
+
+=== Univariate AUROC per feature (leak check) ===
+              feature  univariate_auc
+        charge_at_pH7        0.710739
+modlamp_ChargeDensity        0.708007
+    isoelectric_point        0.704968
+       modlamp_Charge        0.701231
+               frac_E        0.675695
+           modlamp_pI        0.675578
+               frac_D        0.645718
+               frac_W        0.620302
+               frac_T        0.616026
+         ss_turn_frac        0.608079
+               frac_K        0.598656
+               frac_M        0.598215
+               frac_S        0.597161
+  modlamp_Aromaticity        0.596467
+          aromaticity        0.596464
+
+No single feature exceeds 0.90 AUROC alone — no obvious leak by this check.
+
+=== Outlier removal (k=3 IQR, conservative, only on ['length', 'molecular_weight', 'instability_index']) ===
+  length: 0 (0.00%)
+  molecular_weight: 259 (0.38%)
+  instability_index: 1013 (1.47%)
+  combined rows flagged for removal: 1272 (1.85%)
+  removed rows by label (check this isn't skewed toward one class):
+label
+1    974
+0    298
+Name: count, dtype: int64
+
+Saved amp_features_model2_cleaned.csv (67520 rows, 1272 removed)
+Original untouched file remains at amp_features_model2.csv — this step does not overwrite it.
+
+Highly correlated pairs (|r|>0.9): 10 — saved to eda_model2/high_correlation_pairs.csv
+NOTE: pairs like (length, modlamp_Length), (molecular_weight, modlamp_MW), (isoelectric_point, modlamp_pI), (instability_index, modlamp_InstabilityInd), (aromaticity, modlamp_Aromaticity) are EXPECTED — biopython and modlAMP compute the same underlying quantity independently. This isn't a bug, but it means you have real duplicate information in the feature set; drop one of each pair before modeling to avoid diluting feature importance / inflating multicollinearity.
+        feature_a              feature_b  correlation
+           length       molecular_weight     0.995336
+           length         modlamp_Length     1.000000
+           length             modlamp_MW     0.995336
+ molecular_weight         modlamp_Length     0.995336
+ molecular_weight             modlamp_MW     1.000000
+      aromaticity    modlamp_Aromaticity     1.000000
+instability_index modlamp_InstabilityInd     1.000000
+            gravy   modlamp_HydrophRatio     0.907797
+    charge_at_pH7         modlamp_Charge     0.996248
+   modlamp_Length             modlamp_MW     0.995336
+
+Class balance:
+label
+0    34010
+1    33510
+Name: count, dtype: int64
+ratio: 1.015 : 1
+
+Rows with identical feature vectors despite different sequences: 880
+  Worth a look — could be near-identical short sequences with the same composition, or a sign that the feature set doesn't distinguish some real sequence differences. Not necessarily a bug, but not nothing either.
+
+=== EDA complete. All outputs in eda_model2/ and amp_features_model2_cleaned.csv ===

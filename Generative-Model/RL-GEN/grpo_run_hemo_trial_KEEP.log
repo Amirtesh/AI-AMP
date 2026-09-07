@@ -1,0 +1,72 @@
+nohup: ignoring input
+Loading weights:   0%|          | 0/106 [00:00<?, ?it/s]Loading weights: 100%|██████████| 106/106 [00:00<00:00, 17209.73it/s]
+Device: cpu
+Class-diversity index loaded: k=5, natural frequencies=[0.393 0.039 0.235 0.121 0.212]
+No GRPO checkpoint found, starting fresh from Stage 2 model
+Model 2 loaded. Decision threshold: 0.5000000000000001
+Loading esm2_t12_35M_UR50D on cpu (one-time load)...
+step 0/100 mean_reward=1.453 std=0.458 pg_loss=-0.2403 kl=0.0795 total_loss=-0.2364 time=39.2s
+  reward terms (mean): model2=0.682 charge=0.746 length=0.660 hmom=0.468 div=-0.003 class_div=0.451
+  cluster distribution this step: {0: 150, 1: 2, 2: 43, 3: 19, 4: 42}
+  -> checkpoint saved at step 0
+step 5/100 mean_reward=1.542 std=0.414 pg_loss=-0.2201 kl=0.0818 total_loss=-0.2160 time=25.1s
+  reward terms (mean): model2=0.767 charge=0.716 length=0.715 hmom=0.520 div=-0.032 class_div=0.378
+  cluster distribution this step: {0: 138, 1: 6, 2: 29, 3: 29, 4: 54}
+step 10/100 mean_reward=1.648 std=0.329 pg_loss=-0.2014 kl=0.1004 total_loss=-0.1964 time=24.8s
+  reward terms (mean): model2=0.845 charge=0.788 length=0.711 hmom=0.598 div=-0.062 class_div=0.386
+  cluster distribution this step: {0: 104, 1: 8, 2: 24, 3: 35, 4: 85}
+step 15/100 mean_reward=1.691 std=0.326 pg_loss=-0.1837 kl=0.1368 total_loss=-0.1768 time=25.4s
+  reward terms (mean): model2=0.888 charge=0.782 length=0.721 hmom=0.616 div=-0.090 class_div=0.390
+  cluster distribution this step: {0: 85, 1: 5, 2: 7, 3: 46, 4: 113}
+step 20/100 mean_reward=1.710 std=0.294 pg_loss=-0.1460 kl=0.1527 total_loss=-0.1383 time=24.9s
+  reward terms (mean): model2=0.912 charge=0.796 length=0.687 hmom=0.652 div=-0.099 class_div=0.391
+  cluster distribution this step: {0: 82, 1: 15, 2: 14, 3: 40, 4: 105}
+step 25/100 mean_reward=1.730 std=0.297 pg_loss=-0.1335 kl=0.1790 total_loss=-0.1245 time=25.3s
+  reward terms (mean): model2=0.921 charge=0.784 length=0.680 hmom=0.661 div=-0.132 class_div=0.399
+  cluster distribution this step: {0: 64, 1: 10, 2: 9, 3: 65, 4: 108}
+  -> checkpoint saved at step 25
+step 30/100 mean_reward=1.748 std=0.294 pg_loss=-0.1905 kl=0.1890 total_loss=-0.1811 time=21.1s
+  reward terms (mean): model2=0.919 charge=0.830 length=0.662 hmom=0.722 div=-0.109 class_div=0.396
+  cluster distribution this step: {0: 61, 1: 15, 2: 11, 3: 41, 4: 128}
+step 35/100 mean_reward=1.791 std=0.211 pg_loss=-0.0790 kl=0.2046 total_loss=-0.0688 time=18.4s
+  reward terms (mean): model2=0.955 charge=0.846 length=0.664 hmom=0.744 div=-0.141 class_div=0.401
+  cluster distribution this step: {0: 51, 1: 19, 2: 9, 3: 46, 4: 131}
+step 40/100 mean_reward=1.833 std=0.237 pg_loss=-0.1338 kl=0.2183 total_loss=-0.1229 time=23.8s
+  reward terms (mean): model2=0.945 charge=0.894 length=0.628 hmom=0.787 div=-0.075 class_div=0.394
+  cluster distribution this step: {0: 56, 1: 5, 2: 4, 3: 51, 4: 140}
+step 45/100 mean_reward=1.836 std=0.200 pg_loss=-0.1364 kl=0.2424 total_loss=-0.1243 time=15.4s
+  reward terms (mean): model2=0.952 charge=0.922 length=0.629 hmom=0.778 div=-0.097 class_div=0.392
+  cluster distribution this step: {0: 61, 1: 7, 2: 3, 3: 50, 4: 135}
+step 50/100 mean_reward=1.852 std=0.209 pg_loss=-0.1270 kl=0.2521 total_loss=-0.1144 time=16.8s
+  reward terms (mean): model2=0.963 charge=0.901 length=0.616 hmom=0.817 div=-0.085 class_div=0.392
+  cluster distribution this step: {0: 53, 1: 4, 2: 2, 3: 43, 4: 154}
+  -> checkpoint saved at step 50
+step 55/100 mean_reward=1.871 std=0.187 pg_loss=-0.0672 kl=0.2968 total_loss=-0.0524 time=13.9s
+  reward terms (mean): model2=0.967 charge=0.929 length=0.603 hmom=0.769 div=-0.061 class_div=0.391
+  cluster distribution this step: {0: 57, 1: 4, 2: 7, 3: 44, 4: 144}
+step 60/100 mean_reward=1.876 std=0.223 pg_loss=-0.1419 kl=0.2791 total_loss=-0.1279 time=14.0s
+  reward terms (mean): model2=0.954 charge=0.935 length=0.595 hmom=0.803 div=-0.062 class_div=0.394
+  cluster distribution this step: {0: 45, 1: 5, 2: 2, 3: 40, 4: 164}
+step 65/100 mean_reward=1.901 std=0.176 pg_loss=-0.0587 kl=0.3205 total_loss=-0.0427 time=18.2s
+  reward terms (mean): model2=0.966 charge=0.921 length=0.617 hmom=0.803 div=-0.063 class_div=0.392
+  cluster distribution this step: {0: 48, 1: 6, 2: 5, 3: 33, 4: 164}
+step 70/100 mean_reward=1.920 std=0.162 pg_loss=-0.1011 kl=0.3496 total_loss=-0.0836 time=15.4s
+  reward terms (mean): model2=0.976 charge=0.917 length=0.592 hmom=0.843 div=-0.055 class_div=0.394
+  cluster distribution this step: {0: 45, 1: 4, 2: 2, 3: 43, 4: 162}
+step 75/100 mean_reward=1.934 std=0.155 pg_loss=-0.1014 kl=0.3671 total_loss=-0.0831 time=19.6s
+  reward terms (mean): model2=0.974 charge=0.957 length=0.576 hmom=0.822 div=-0.041 class_div=0.391
+  cluster distribution this step: {0: 46, 1: 1, 2: 1, 3: 39, 4: 169}
+  -> checkpoint saved at step 75
+step 80/100 mean_reward=1.960 std=0.126 pg_loss=-0.0332 kl=0.4168 total_loss=-0.0124 time=13.6s
+  reward terms (mean): model2=0.993 charge=0.933 length=0.603 hmom=0.857 div=-0.048 class_div=0.399
+  cluster distribution this step: {0: 25, 1: 2, 3: 40, 4: 189}
+step 85/100 mean_reward=1.954 std=0.150 pg_loss=-0.0655 kl=0.4153 total_loss=-0.0447 time=16.8s
+  reward terms (mean): model2=0.981 charge=0.948 length=0.572 hmom=0.876 div=-0.066 class_div=0.392
+  cluster distribution this step: {0: 38, 1: 2, 2: 1, 3: 30, 4: 185}
+step 90/100 mean_reward=1.971 std=0.131 pg_loss=-0.0596 kl=0.4357 total_loss=-0.0378 time=12.9s
+  reward terms (mean): model2=0.991 charge=0.952 length=0.618 hmom=0.869 div=-0.038 class_div=0.395
+  cluster distribution this step: {0: 26, 1: 2, 2: 2, 3: 24, 4: 202}
+step 95/100 mean_reward=1.969 std=0.128 pg_loss=-0.0544 kl=0.4821 total_loss=-0.0303 time=11.7s
+  reward terms (mean): model2=0.986 charge=0.953 length=0.606 hmom=0.897 div=-0.040 class_div=0.388
+  cluster distribution this step: {0: 43, 1: 1, 2: 1, 3: 22, 4: 189}
+  -> checkpoint saved at step 99

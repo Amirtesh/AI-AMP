@@ -1,0 +1,115 @@
+Device: cuda, GPUs visible: 1
+  GPU 0: NVIDIA A100-PCIE-40GB
+Mixed precision: True (bf16)
+Dropping 14 sequences with non-canonical residues
+Corpus: 3374346 sequences, max length 83
+Train: 3306859, Val: 67487
+Model parameters: 4,772,608
+/home/Peptide-generation/train_stage1.py:212: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=(args.amp and not use_bf16))
+No checkpoint found, starting fresh
+  epoch 0 step 0/808 loss=3.3401 lr=2.40e-05 elapsed=0.0min
+  epoch 0 step 200/808 loss=2.7635 lr=1.67e-04 elapsed=1.0min
+  epoch 0 step 400/808 loss=2.7509 lr=4.53e-04 elapsed=2.0min
+  epoch 0 step 600/808 loss=2.7388 lr=6.00e-04 elapsed=3.0min
+  epoch 0 step 800/808 loss=2.7331 lr=6.00e-04 elapsed=4.0min
+Epoch 0: train_loss=2.7666 val_loss=2.7723 time=4.1min
+  -> new best model saved (val_loss=2.7723)
+  epoch 1 step 0/808 loss=2.7324 lr=6.00e-04 elapsed=0.0min
+  epoch 1 step 200/808 loss=2.7335 lr=5.98e-04 elapsed=1.0min
+  epoch 1 step 400/808 loss=2.7256 lr=5.96e-04 elapsed=2.0min
+  epoch 1 step 600/808 loss=2.7247 lr=5.93e-04 elapsed=3.0min
+  epoch 1 step 800/808 loss=2.7164 lr=5.89e-04 elapsed=4.0min
+Epoch 1: train_loss=2.7274 val_loss=2.7589 time=4.2min
+  -> new best model saved (val_loss=2.7589)
+  epoch 2 step 0/808 loss=2.7143 lr=5.89e-04 elapsed=0.0min
+  epoch 2 step 200/808 loss=2.7159 lr=5.84e-04 elapsed=1.0min
+  epoch 2 step 400/808 loss=2.7057 lr=5.78e-04 elapsed=2.0min
+  epoch 2 step 600/808 loss=2.6985 lr=5.71e-04 elapsed=3.0min
+  epoch 2 step 800/808 loss=2.6765 lr=5.64e-04 elapsed=4.0min
+Epoch 2: train_loss=2.7064 val_loss=2.7254 time=4.2min
+  -> new best model saved (val_loss=2.7254)
+  epoch 3 step 0/808 loss=2.6870 lr=5.64e-04 elapsed=0.0min
+  epoch 3 step 200/808 loss=2.6635 lr=5.56e-04 elapsed=1.0min
+  epoch 3 step 400/808 loss=2.6567 lr=5.47e-04 elapsed=2.0min
+  epoch 3 step 600/808 loss=2.6462 lr=5.37e-04 elapsed=3.0min
+  epoch 3 step 800/808 loss=2.6181 lr=5.27e-04 elapsed=4.0min
+Epoch 3: train_loss=2.6554 val_loss=2.6586 time=4.2min
+  -> new best model saved (val_loss=2.6586)
+  epoch 4 step 0/808 loss=2.6212 lr=5.26e-04 elapsed=0.0min
+  epoch 4 step 200/808 loss=2.6128 lr=5.15e-04 elapsed=1.0min
+  epoch 4 step 400/808 loss=2.5876 lr=5.03e-04 elapsed=2.0min
+  epoch 4 step 600/808 loss=2.5926 lr=4.91e-04 elapsed=3.0min
+  epoch 4 step 800/808 loss=2.5532 lr=4.78e-04 elapsed=4.0min
+Epoch 4: train_loss=2.5934 val_loss=2.6001 time=4.2min
+  -> new best model saved (val_loss=2.6001)
+  epoch 5 step 0/808 loss=2.5611 lr=4.78e-04 elapsed=0.0min
+  epoch 5 step 200/808 loss=2.5659 lr=4.64e-04 elapsed=1.0min
+  epoch 5 step 400/808 loss=2.5573 lr=4.50e-04 elapsed=2.0min
+  epoch 5 step 600/808 loss=2.5320 lr=4.36e-04 elapsed=3.0min
+  epoch 5 step 800/808 loss=2.5336 lr=4.21e-04 elapsed=4.0min
+Epoch 5: train_loss=2.5442 val_loss=2.5577 time=4.2min
+  -> new best model saved (val_loss=2.5577)
+  epoch 6 step 0/808 loss=2.5312 lr=4.20e-04 elapsed=0.0min
+  epoch 6 step 200/808 loss=2.5221 lr=4.05e-04 elapsed=1.0min
+  epoch 6 step 400/808 loss=2.5083 lr=3.90e-04 elapsed=2.0min
+  epoch 6 step 600/808 loss=2.4903 lr=3.74e-04 elapsed=3.0min
+  epoch 6 step 800/808 loss=2.4863 lr=3.58e-04 elapsed=4.0min
+Epoch 6: train_loss=2.5069 val_loss=2.5248 time=4.2min
+  -> new best model saved (val_loss=2.5248)
+  epoch 7 step 0/808 loss=2.4996 lr=3.57e-04 elapsed=0.0min
+  epoch 7 step 200/808 loss=2.4862 lr=3.41e-04 elapsed=1.0min
+  epoch 7 step 400/808 loss=2.4833 lr=3.25e-04 elapsed=2.0min
+  epoch 7 step 600/808 loss=2.4922 lr=3.09e-04 elapsed=3.0min
+  epoch 7 step 800/808 loss=2.4727 lr=2.92e-04 elapsed=4.0min
+Epoch 7: train_loss=2.4797 val_loss=2.5008 time=4.2min
+  -> new best model saved (val_loss=2.5008)
+  epoch 8 step 0/808 loss=2.4799 lr=2.92e-04 elapsed=0.0min
+  epoch 8 step 200/808 loss=2.4630 lr=2.75e-04 elapsed=1.0min
+  epoch 8 step 400/808 loss=2.4579 lr=2.59e-04 elapsed=2.0min
+  epoch 8 step 600/808 loss=2.4530 lr=2.43e-04 elapsed=3.0min
+  epoch 8 step 800/808 loss=2.4434 lr=2.27e-04 elapsed=4.0min
+Epoch 8: train_loss=2.4590 val_loss=2.4820 time=4.2min
+  -> new best model saved (val_loss=2.4820)
+  epoch 9 step 0/808 loss=2.4522 lr=2.26e-04 elapsed=0.0min
+  epoch 9 step 200/808 loss=2.4360 lr=2.10e-04 elapsed=1.0min
+  epoch 9 step 400/808 loss=2.4476 lr=1.95e-04 elapsed=2.0min
+  epoch 9 step 600/808 loss=2.4417 lr=1.80e-04 elapsed=3.0min
+  epoch 9 step 800/808 loss=2.4481 lr=1.65e-04 elapsed=4.0min
+Epoch 9: train_loss=2.4433 val_loss=2.4680 time=4.2min
+  -> new best model saved (val_loss=2.4680)
+  epoch 10 step 0/808 loss=2.4138 lr=1.64e-04 elapsed=0.0min
+  epoch 10 step 200/808 loss=2.4426 lr=1.50e-04 elapsed=1.0min
+  epoch 10 step 400/808 loss=2.4254 lr=1.36e-04 elapsed=2.0min
+  epoch 10 step 600/808 loss=2.4347 lr=1.23e-04 elapsed=3.0min
+  epoch 10 step 800/808 loss=2.4436 lr=1.10e-04 elapsed=4.0min
+Epoch 10: train_loss=2.4312 val_loss=2.4579 time=4.2min
+  -> new best model saved (val_loss=2.4579)
+  epoch 11 step 0/808 loss=2.4292 lr=1.09e-04 elapsed=0.0min
+  epoch 11 step 200/808 loss=2.4317 lr=9.68e-05 elapsed=1.0min
+  epoch 11 step 400/808 loss=2.4351 lr=8.51e-05 elapsed=2.0min
+  epoch 11 step 600/808 loss=2.4374 lr=7.40e-05 elapsed=3.0min
+  epoch 11 step 800/808 loss=2.4327 lr=6.36e-05 elapsed=4.0min
+Epoch 11: train_loss=2.4227 val_loss=2.4505 time=4.2min
+  -> new best model saved (val_loss=2.4505)
+  epoch 12 step 0/808 loss=2.4276 lr=6.32e-05 elapsed=0.0min
+  epoch 12 step 200/808 loss=2.4079 lr=5.35e-05 elapsed=1.0min
+  epoch 12 step 400/808 loss=2.4138 lr=4.45e-05 elapsed=2.0min
+  epoch 12 step 600/808 loss=2.4274 lr=3.63e-05 elapsed=3.0min
+  epoch 12 step 800/808 loss=2.4275 lr=2.89e-05 elapsed=4.0min
+Epoch 12: train_loss=2.4172 val_loss=2.4462 time=4.2min
+  -> new best model saved (val_loss=2.4462)
+  epoch 13 step 0/808 loss=2.4396 lr=2.86e-05 elapsed=0.0min
+  epoch 13 step 200/808 loss=2.4302 lr=2.21e-05 elapsed=1.0min
+  epoch 13 step 400/808 loss=2.4039 lr=1.63e-05 elapsed=2.0min
+  epoch 13 step 600/808 loss=2.4062 lr=1.14e-05 elapsed=3.0min
+  epoch 13 step 800/808 loss=2.4152 lr=7.37e-06 elapsed=4.0min
+Epoch 13: train_loss=2.4144 val_loss=2.4444 time=4.2min
+  -> new best model saved (val_loss=2.4444)
+  epoch 14 step 0/808 loss=2.4171 lr=7.23e-06 elapsed=0.0min
+  epoch 14 step 200/808 loss=2.3980 lr=4.09e-06 elapsed=1.0min
+  epoch 14 step 400/808 loss=2.4038 lr=1.84e-06 elapsed=2.0min
+  epoch 14 step 600/808 loss=2.4124 lr=4.76e-07 elapsed=3.0min
+  epoch 14 step 800/808 loss=2.4042 lr=2.80e-09 elapsed=4.0min
+Epoch 14: train_loss=2.4129 val_loss=2.4441 time=4.2min
+  -> new best model saved (val_loss=2.4441)
