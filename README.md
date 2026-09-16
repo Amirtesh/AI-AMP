@@ -39,31 +39,49 @@ Final-Codes/
 |   `-- feature_columns.json                   # Feature column definitions
 |
 `-- Generative-Model/                          # SmallPeptideGPT generator & RL
-    |-- env.yml                                # Conda environment for Stages 1 & 2
-    |-- train_stage1.py                        # Pretraining script
-    |-- train_stage2.py                        # SFT adaptation script
-    |-- generate_base.py                       # Sampling from Stage 1
-    |-- generate_finetuned.py                  # Sampling from Stage 2 (validated deliverable)
-    |-- stage1_checkpoints/                    # Pretrained weights (best_model.pt)
-    |-- stage2_checkpoints/                    # Production SFT weights (best_model.pt)
-    |
-    `-- RL-GEN/                                # Stage 3: GRPO reinforcement learning
-        |-- env.yml                            # Conda environment for RL training
-        |-- grpo_train.py                      # Multi-objective GRPO training script
+    |-- data/                                  # Shared training and reference data
+    |   |-- amp_positive_filtered.csv          # Curated AMP positives for Stage 2 / GRPO
+    |   |-- stage1_corpus_weighted.csv         # PeptideAtlas pretraining corpus
+    |   |-- training_seq.csv                   # Merged sequence list for novelty checks
+    |   `-- amp_clusters_assignments.csv       # AMP cluster assignments (k=5)
+    |-- model2/                                # Model 2 client and ESM2 embedder
+    |   |-- model2_esm2.joblib                 # Model 2 ESM2-only classifier
+    |   |-- model2_client.py                   # Inference client for GRPO reward
+    |   |-- esm2_embedder.py                   # Shared ESM2 embedding utility
+    |   `-- feature_columns.json               # ESM2 feature column definitions
+    |-- model3_analysis/                       # AMP family clustering tools
+    |   |-- cluster_amp_families.py            # ESM2 k-means clustering script
+    |   |-- amp_clusters_kmeans_k5.joblib      # Fitted k=5 cluster model
+    |   `-- amp_clusters_k_selection.csv       # Silhouette scores across k values
+    |-- model3_generative/                     # Stages 1 & 2: Pretraining and SFT
+    |   |-- env.yml                            # Conda environment for Stages 1 & 2
+    |   |-- train_stage1.py                    # Stage 1 pretraining script
+    |   |-- train_stage2.py                    # Stage 2 SFT script
+    |   |-- generate_base.py                   # Sampling from Stage 1 model
+    |   |-- generate_finetuned.py              # Sampling from Stage 2 (validated deliverable)
+    |   |-- plot_training_curves.py            # Loss and perplexity visualization
+    |   |-- stage1_checkpoints/                # Stage 1 pretrained weights (best_model.pt)
+    |   `-- stage2_checkpoints/                # Stage 2 production weights (best_model.pt)
+    `-- model3_grpo/                           # Stage 3: GRPO reinforcement learning
+        |-- env.yml                            # Conda environment for RLGEN
+        |-- grpo_train.py                      # Multi-objective GRPO training engine
         |-- reward.py                          # Composite reward module
         |-- peptide_features.py                # Physicochemical scoring functions
-        |-- diversity_penalty.py               # Dipeptide cosine diversity
-        |-- class_diversity.py                 # ESM2 cluster diversity
-        |-- hemopi2_client.py                  # In-process HemoPI2 scoring client
+        |-- diversity_penalty.py               # Dipeptide cosine diversity penalty
+        |-- class_diversity.py                 # ESM2 cluster diversity bonus
+        |-- hemopi2_client.py                  # In-process HemoPI2 Hybrid2 scoring client
         |-- toxinpred3_server.py               # Background ToxinPred3 HTTP service
         |-- toxinpred3_client.py               # ToxinPred3 HTTP client
         |-- test_reward_components.py          # Standalone reward unit tests
+        |-- compare_checkpoints.py             # Checkpoint diversity and entropy analysis
+        |-- plot_grpo_progress.py              # Reward trajectory visualization
+        |-- track_compounds.py                 # Novel sequence extraction tool
         `-- env_requirements/                  # Requirements files and version notes
-            |-- README.md                      # Dependency notes
+            |-- README.md                      # Dependency conflict notes
             |-- requirements_RLGEN.txt         # Pip freeze for RLGEN (Python 3.12)
             |-- requirements_toxin_hemo.txt    # Pip freeze for toxin_hemo (Python 3.10)
-            |-- env_RLGEN.yml                  # Conda environment YAML for RLGEN
-            `-- env_toxin_hemo.yml             # Conda environment YAML for toxin_hemo
+            |-- env_RLGEN.yml                  # Conda YAML for RLGEN
+            `-- env_toxin_hemo.yml             # Conda YAML for toxin_hemo
 ```
 
 ---
@@ -78,7 +96,7 @@ Due to an upstream dependency requirement in ToxinPred3 (its bundled model pickl
 |---|---|---|---|
 | `amp_model1` | Model 1 Spectrum Classifier | 3.11 | `conda env create -f Model1-AMP_Class_Classifier/env.yml` |
 | `amp_model2` | Model 2 Binary Gatekeeper | 3.11 | `conda env create -f Model2-AMP_Predictor/env.yml` |
-| `amp_generative` | Model 3 Stages 1 & 2 Sampling | 3.11 | `conda env create -f Generative-Model/env.yml` |
+| `amp_generative` | Model 3 Stages 1 & 2 | 3.11 | `conda env create -f Generative-Model/model3_generative/env.yml` |
 | `RLGEN` | Model 3 Stage 3 GRPO Training | 3.12 | `pip install -r requirements_RLGEN.txt` |
 | `toxin_hemo` | Model 3 ToxinPred3 HTTP Server | 3.10 | `pip install -r requirements_toxin_hemo.txt` |
 
@@ -128,10 +146,10 @@ pip install torch fair-esm modlamp
 
 ### 3.3 Setting Up Generative Model Stages 1 & 2 (`amp_generative`)
 
-For general peptide pretraining, fine-tuning, and sampling from the production Stage 2 checkpoint:
+For pretraining, fine-tuning, and sampling from the production Stage 2 checkpoint:
 
 ```bash
-cd Generative-Model
+cd Generative-Model/model3_generative
 conda env create -f env.yml
 conda activate amp_generative
 ```
@@ -147,16 +165,16 @@ pip install torch
 
 ---
 
-### 3.4 Setting Up Generative Model Stage 3 (RL-GEN & Toxicity Suite)
+### 3.4 Setting Up Generative Model Stage 3 (GRPO & Toxicity Suite)
 
 Stage 3 reinforcement learning uses two cooperating environments:
-1. `toxin_hemo` (hosts the persistent ToxinPred3 scoring server).
-2. `RLGEN` (runs the GRPO training loop, Model 2 scoring, and HemoPI2 client).
+1. `toxin_hemo` — hosts the persistent ToxinPred3 scoring server (sklearn 1.2.2 isolated environment).
+2. `RLGEN` — runs the GRPO training loop, Model 2 scoring, and HemoPI2 client (sklearn 1.3.1).
 
 #### Step 1: Create the `toxin_hemo` Environment Using Requirements File
 
 ```bash
-cd Generative-Model/RL-GEN/env_requirements
+cd Generative-Model/model3_grpo/env_requirements
 conda create -n toxin_hemo python=3.10 -y
 conda activate toxin_hemo
 pip install -r requirements_toxin_hemo.txt
@@ -167,7 +185,7 @@ pip install -r requirements_toxin_hemo.txt
 #### Step 2: Create the `RLGEN` Environment Using Requirements File
 
 ```bash
-cd Generative-Model/RL-GEN/env_requirements
+cd Generative-Model/model3_grpo/env_requirements
 conda create -n RLGEN python=3.12 -y
 conda activate RLGEN
 pip install -r requirements_RLGEN.txt
@@ -181,7 +199,7 @@ In a background terminal:
 
 ```bash
 conda activate toxin_hemo
-cd Generative-Model/RL-GEN
+cd Generative-Model/model3_grpo
 nohup python3 toxinpred3_server.py --port 8765 > toxinpred3_server.log 2>&1 &
 disown
 ```
@@ -258,7 +276,7 @@ Generate novel AMP candidates using the validated Stage 2 model:
 
 ```bash
 conda activate amp_generative
-cd Generative-Model
+cd Generative-Model/model3_generative
 
 python3 generate_finetuned.py \
     --nseq 100 \
@@ -266,26 +284,26 @@ python3 generate_finetuned.py \
     --max 50 \
     --temperature 1.0 \
     --top_p 0.9 \
-    --training_seq training_seq.csv \
+    --training_seq ../data/training_seq.csv \
     --output novel_amp_candidates.csv
 ```
 
 ---
 
-### 4.4 Model 3: Reinforcement Learning (Stage 3 GRPO Training)
+### 4.4 Model 3: Reinforcement Learning (Stage 3 GRPO)
 
-Verify the ToxinPred3 server is running (`curl http://127.0.0.1:8765/health`), then run GRPO:
+Ensure the ToxinPred3 server is running first (`curl http://127.0.0.1:8765/health`), then:
 
 ```bash
 conda activate RLGEN
-cd Generative-Model/RL-GEN
+cd Generative-Model/model3_grpo
 
-# Run unit tests on reward calculations first
+# Run unit tests on reward calculations before training
 python3 test_reward_components.py
 
-# Launch GRPO training with default validated weights
+# Launch GRPO training with default weights
 python3 grpo_train.py \
-    --init_checkpoint stage2_checkpoints/best_model.pt \
+    --init_checkpoint ../model3_generative/stage2_checkpoints/best_model.pt \
     --checkpoint_dir grpo_checkpoints \
     --group_size 256 \
     --total_steps 300 \
@@ -294,7 +312,7 @@ python3 grpo_train.py \
     --lr 1e-5 \
     --kl_coef 0.05
 
-# Example: Run GRPO with modified reward weights via CLI flags
+# Override individual reward weights via CLI flags
 python3 grpo_train.py \
     --w_model2 1.0 \
     --w_charge 0.1 \
@@ -305,7 +323,7 @@ python3 grpo_train.py \
     --w_toxicity_penalty 0.4
 ```
 
-See [TUTORIAL.md](TUTORIAL.md#4-model-3-generative-engine-smallpeptidegpt--grpo) for the multi-objective reward formulation, reward hacking analysis, and diagnostic findings.
+See [TUTORIAL.md](TUTORIAL.md#4-model-3-generative-engine-smallpeptidegpt--grpo) for the reward function specification and GRPO methodology.
 
 ---
 

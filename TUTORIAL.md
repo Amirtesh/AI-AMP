@@ -207,7 +207,7 @@ SmallPeptideGPT was constructed specifically for peptide sequences:
   - Low memorization: Only 1 in 20 generated samples matched training data.
   - Structural diversity: Preserves multiple distinct topologies, including cysteine-rich defensin-like and proline-rich motifs.
 
-Stage 2 (`Generative-Model/stage2_checkpoints/best_model.pt`) is the verified, working generative model.
+Stage 2 (`Generative-Model/model3_generative/stage2_checkpoints/best_model.pt`) is the verified, working generative model.
 
 ### 4.4 Stage 3: GRPO Reinforcement Learning
 
@@ -272,23 +272,34 @@ Reward Component Specifications:
    (Default weight = 0.40).
 9. `Score_AD_Penalty`: Applicability-domain distance penalty (Weight = 0.00; tested and disabled as a documented negative result).
 
-### 4.6 Failure Mode Analysis: Multi-Objective Collapse and Dual-Classifier Reward Hacking
+### 4.6 Running GRPO Experiments
 
-Extended RL experiments revealed critical failure modes in peptide optimization:
+The GRPO reinforcement learning infrastructure is fully implemented and available for user experimentation. The reward function is configurable at the CLI level, allowing systematic exploration of multi-objective AMP optimization.
 
-1. Mode Collapse (Runs v1 through v4):
-   - In early runs, the policy converged rapidly to short, highly cationic amphipathic alpha-helices.
-   - Amino acid entropy dropped from 0.90 to 0.69; mean length collapsed to 16 +/- 1.5aa; cysteine-rich defensin peptides vanished completely.
-   - Root cause: Model 2 itself implicitly correlates with net charge (r = 0.38) and hydrophobic moment (r = 0.33). Because Model 2 carries weight 1.0, its internal preferences overpower explicit diversity terms.
-2. Dual-Classifier Reward Hacking (Extended 250 Steps):
-   - Baseline Stage 2 generated peptides showed high predicted hemolysis (75.7% hemolytic via HemoPI2 Hybrid2).
-   - Adding `Score_Hemolysis_Penalty` alone reduced predicted hemolysis to 13.0%.
-   - Adding both `Score_Hemolysis_Penalty` and `Score_Toxicity_Penalty` over 250 steps produced near-perfect classifier scores: predicted hemolysis dropped to 1.8% and predicted toxicity dropped to 1.1%.
-   - However, severe sequence collapse occurred simultaneously: 96.8% of generated sequences concentrated in a single cluster, pairwise sequence similarity rose to 0.451, and 35 of 50 sampled sequences shared a literal `GLWSKIKE` N-terminal sequence.
-   - Diagnosis: The policy exploited an alignment blind spot between the two surrogate classifiers rather than learning general, diverse, non-toxic AMP sequences.
+To run a GRPO experiment:
 
-Conclusion:  
-Soft additive reward shaping cannot reliably prevent mode collapse or reward hacking in peptide RL. The identified next step is structural group-quota sampling, enforcing representation across structural families at generation time.
+1. Start the ToxinPred3 server in the `toxin_hemo` environment (see README.md Section 3.4).
+2. Activate the `RLGEN` environment and navigate to `Generative-Model/model3_grpo/`.
+3. Run unit tests to verify reward components are functioning:
+   ```bash
+   python3 test_reward_components.py
+   ```
+4. Launch training:
+   ```bash
+   python3 grpo_train.py \
+       --init_checkpoint ../model3_generative/stage2_checkpoints/best_model.pt \
+       --checkpoint_dir grpo_checkpoints \
+       --group_size 256 \
+       --total_steps 300 \
+       --min_len 15 \
+       --max_len 50 \
+       --lr 1e-5 \
+       --kl_coef 0.05
+   ```
+
+All eight reward component weights (`--w_model2`, `--w_charge`, `--w_hmom`, `--w_diversity_penalty`, `--w_class_diversity`, `--w_hemolysis_penalty`, `--w_toxicity_penalty`) are individually overridable via CLI flags. Diagnostic and analysis tools are provided in `model3_grpo/`: `compare_checkpoints.py` for entropy and diversity tracking, `plot_grpo_progress.py` for reward trajectory visualization, and `track_compounds.py` for novel sequence extraction.
+
+Mode collapse is a documented challenge in RL-based peptide generation and an active area of research. The infrastructure here provides a starting point for systematic multi-objective reward shaping experiments.
 
 ---
 
@@ -298,10 +309,10 @@ The codebase provides several standalone, validated tools:
 
 1. `Model1-AMP_Class_Classifier/predict.py`: Standalone CLI supporting single sequences, FASTA, CSV, and TXT files, predicting Gram-positive, Gram-negative, and antifungal activity with native XGBoost JSON models.
 2. `Model2-AMP_Predictor/predict.py`: Standalone binary gatekeeper CLI. Keeps invalid rows in output tables with explicit error reasons, and flags sub-15aa sequences with confidence notes.
-3. `Generative-Model/generate_finetuned.py`: Nucleus/temperature-controlled autoregressive generator sampling from the validated Stage 2 SmallPeptideGPT model.
-4. `Generative-Model/RL-GEN/hemopi2_client.py`: In-process Python wrapper for HemoPI2 Hybrid2 (ESM + MERCI) scoring (<0.5s per 256-sequence batch).
-5. `Generative-Model/RL-GEN/toxinpred3_server.py` and `toxinpred3_client.py`: Local microservice architecture isolating scikit-learn 1.2.2 requirements from modern Python environments.
-6. `Generative-Model/RL-GEN/test_reward_components.py`: Unit test suite verifying physicochemical and diversity reward calculations without requiring GPU or server resources.
+3. `Generative-Model/model3_generative/generate_finetuned.py`: Nucleus/temperature-controlled autoregressive generator sampling from the validated Stage 2 SmallPeptideGPT model.
+4. `Generative-Model/model3_grpo/hemopi2_client.py`: In-process Python wrapper for HemoPI2 Hybrid2 (ESM + MERCI) scoring (<0.5s per 256-sequence batch).
+5. `Generative-Model/model3_grpo/toxinpred3_server.py` and `toxinpred3_client.py`: Local microservice architecture isolating scikit-learn 1.2.2 requirements from modern Python environments.
+6. `Generative-Model/model3_grpo/test_reward_components.py`: Unit test suite verifying physicochemical and diversity reward calculations without requiring GPU or server resources.
 
 ---
 
