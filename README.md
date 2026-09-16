@@ -10,7 +10,7 @@ License: MIT Open Source License
 AI-AMP is an open-source suite of machine learning models and pipelines for antimicrobial peptide (AMP) research. The codebase is organized into three primary modules:
 
 1. **Model 1 (Antimicrobial Spectrum Classifier):** A multi-label classifier predicting targeted antimicrobial spectrum (Gram-positive, Gram-negative, antifungal) directly from primary peptide sequence.
-2. **Model 2 (Binary AMP Gatekeeper):** An upstream binary classifier distinguishing genuine AMPs from non-antimicrobial background proteins, utilizing exact length-matched background curation and ESM2 language model representations.
+2. **Model 2 (Binary AMP Gatekeeper):** An upstream binary classifier distinguishing genuine AMPs from non-antimicrobial background proteins, utilizing exact length-matched background curation and ESM2 language model representations. Externally validated and benchmarked head-to-head against AMPir and AMPEPpy on the LMPred corpus (AUROC 0.9123).
 3. **Model 3 (Generative Engine - SmallPeptideGPT):** An autoregressive peptide generator consisting of Stage 1 pretraining (3.37M natural peptides), Stage 2 supervised fine-tuning (18,878 verified AMPs), and Stage 3 Group Relative Policy Optimization (GRPO) reinforcement learning infrastructure.
 
 For the complete scientific methodology, benchmark tables, ablation studies, SHAP interpretability analyses, and detailed failure-mode diagnoses, please refer to [TUTORIAL.md](TUTORIAL.md).
@@ -36,7 +36,8 @@ Final-Codes/
 |   |-- env.yml                                # Conda environment file
 |   |-- predict.py                             # Binary prediction CLI
 |   |-- model2_esm2.joblib                     # Selected production model
-|   `-- feature_columns.json                   # Feature column definitions
+|   |-- feature_columns.json                   # Feature column definitions
+|   `-- Benchmark-External-Dataset/            # Head-to-head comparison vs AMPir, AMPEPpy (LMPred dataset)
 |
 `-- Generative-Model/                          # SmallPeptideGPT generator & RL
     |-- data/                                  # Shared training and reference data

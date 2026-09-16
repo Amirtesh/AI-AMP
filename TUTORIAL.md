@@ -159,10 +159,23 @@ Final Dataset: 68,792 sequences (34,484 positive, 34,308 negative). Partitioned 
 Selection Rationale:  
 A 1,000-fold bootstrap test on the MCC difference between Combined and ESM2-only gave a mean difference of 0.0014 with a 95% confidence interval of [-0.0088, 0.0115]. Because the confidence interval straddles zero, the two models are statistically indistinguishable. ESM2-only was selected on a tie-break to eliminate runtime dependencies on biophysical feature calculation libraries during high-throughput inference.
 
-### 3.4 External Validation on Independent Corpus (LMPred)
+### 3.4 External Validation and Head-to-Head Benchmark (LMPred Dataset)
 
-Evaluated on 1,251 non-overlapping, length-matched sequences from the independent LMPred benchmark:
-- External Test AUROC: 0.9123 (95% bootstrap CI: [0.8722, 0.9483]).
+Model 2 was evaluated on 1,251 non-overlapping, length-matched sequences from the independent LMPred benchmark corpus (278 AMP positives, 973 non-AMP negatives). This same dataset was used for a direct head-to-head comparison against two published AMP classifiers, AMPir and AMPEPpy, run on identical sequences under identical evaluation conditions.
+
+All three models were scored on the exact subset of sequences that pass Model 2's validity filters (canonical amino acids, length 5-100aa) to ensure a fair, directly comparable evaluation. Predictions from AMPir were obtained via its R package (`predict_amps`, precursor model). AMPEPpy predictions were obtained from its published web tool.
+
+Results on the full valid evaluation set:
+
+| Model | AUROC | AUPRC | F1 | MCC |
+|---|---|---|---|---|
+| ESM2 (ours) | 0.9123 | 0.5136 | 0.437 | 0.428 |
+| AMPEPpy | 0.8805 | 0.3050 | 0.436 | 0.423 |
+| AMPir | 0.5931 | 0.0842 | 0.111 | 0.032 |
+
+Model 2 achieves the highest AUROC on this class-imbalanced external corpus (1:3.5 AMP:non-AMP ratio). An additional applicability-domain filtered evaluation restricted to the Model 2 training-domain sequences further benchmarks against AMPlify, with Model 2 (AUROC 0.9123) and AMPlify (AUROC 0.9109) performing comparably on that filtered subset.
+
+95% bootstrap CI for Model 2 external AUROC: [0.8722, 0.9483].
 
 ### 3.5 Hard-Negative Stress Test and Failure Mode Diagnosis
 
