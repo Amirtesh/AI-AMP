@@ -30,10 +30,13 @@ for task in ["gram_positive", "gram_negative", "fungal"]:
     shap_values = explainer.shap_values(X_test)
 
     # --- 1. Bar plot: mean |SHAP| per feature, top 20 ---
-    plt.figure()
+    plt.figure(figsize=(14, 7))
     shap.summary_plot(shap_values, X_test, plot_type="bar", max_display=20, show=False)
     plt.title(f"{task} - Feature Importance (mean |SHAP|)")
-    plt.tight_layout()
+    ax = plt.gca()
+    # SHAP sets a long x-axis label; re-apply it with wrapping so it never clips
+    current_xlabel = ax.get_xlabel()
+    ax.set_xlabel(current_xlabel, wrap=True, labelpad=10)
     plt.savefig(f"shap_outputs/{task}_bar.png", dpi=150, bbox_inches="tight")
     plt.close()
 
