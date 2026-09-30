@@ -8,7 +8,7 @@ library(ampir); library(pROC); library(PRROC)
 df <- read.csv("Cleaned_External_Dataset.csv", stringsAsFactors = FALSE)
 input_df <- data.frame(seq_name = as.character(df$id_ref), seq_aa = df$Sequence, stringsAsFactors = FALSE)
 
-pred <- predict_amps(input_df, model = "precursor")
+pred <- predict_amps(input_df, model = "mature")
 
 # --- sanity checks before trusting anything downstream ---
 cat("Rows in input:", nrow(input_df), " Rows in predictions:", nrow(pred), "\n")
